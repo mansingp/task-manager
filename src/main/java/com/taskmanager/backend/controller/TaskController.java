@@ -1,13 +1,26 @@
 package com.taskmanager.backend.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.taskmanager.backend.model.Task;
+import com.taskmanager.backend.repository.TaskRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@RequestMapping("/api/tasks")
 public class TaskController {
 
-    @GetMapping("/")
-    public String home() {
-        return "Spring Boot is running!";
+    @Autowired
+    private TaskRepository taskRepository;
+
+    @GetMapping
+    public List<Task> getAllTasks() {
+        return taskRepository.findAll();
+    }
+
+    @PostMapping
+    public Task createTask(@RequestBody Task task) {
+        return taskRepository.save(task);
     }
 }
