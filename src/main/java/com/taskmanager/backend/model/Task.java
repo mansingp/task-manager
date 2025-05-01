@@ -2,6 +2,9 @@ package com.taskmanager.backend.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 
 @Document(collection = "tasks")
 public class Task {
@@ -9,6 +12,8 @@ public class Task {
     @Id
     private String id;
 
+    @NotBlank(message = "Title is mandatory")
+    @Size(min = 3, message = "Title must be at least 3 characters")
     private String title;
     private String description;
     private boolean completed;
